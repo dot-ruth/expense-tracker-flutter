@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:expense_tracker/data/data.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -178,9 +179,102 @@ class MainScreen extends StatelessWidget {
                   ],),
                 )
               ],)
+            ),
+            const SizedBox(height: 40),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+              Text(
+                "Transactions",
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).colorScheme.onSurface
+                )),
+                GestureDetector(
+                  onTap: () {
+
+                  },
+                  child:Text(
+                "View All",
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                  color: Theme.of(context).colorScheme.outline
+                )))
+                
+            ],),
+            const SizedBox(height: 20),
+            Expanded(
+              child: ListView.builder(
+                itemCount: transactionsData.length,
+                itemBuilder: (context, int i) {
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 16.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                            Row(
+                              children: [
+                                Stack(
+                                  alignment: Alignment.center,
+                                  children: [
+                                    Container(
+                                      width: 50,
+                                      height: 50,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: transactionsData[i]['color'],
+                                      ),
+                                    ),
+                                    transactionsData[i]['icon']
+                                    
+                                  ],
+                                ),
+                                SizedBox(width: 12,),
+                                Text(transactionsData[i]['name'], 
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                  color: Theme.of(context).colorScheme.onSurface
+                                )),
+                              ],
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                              Text(transactionsData[i]['totalAmount'], 
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                              color: Theme.of(context).colorScheme.onSurface
+                            )),Text(transactionsData[i]['date'], 
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                              color: Theme.of(context).colorScheme.outline
+                            ))
+                            ],)
+                          ],),
+                        ],
+                      ),
+                    )
+                  ),
+                );
+              },),
             )
                ]
              ),
-       )); 
+           )
+       ); 
   }
 }
